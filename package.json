@@ -1,27 +1,19 @@
 {
-  "name": "hoplite",
+  "name": "Soliferrum",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "build": "webpack"
   },
   "dependencies": {
-    "express": "~4.2.0",
-    "static-favicon": "~1.0.0",
-    "morgan": "~1.0.0",
-    "cookie-parser": "~1.0.1",
-    "body-parser": "~1.0.0",
-    "debug": "~0.7.4",
-    "jade": "~1.3.0",
-	"inherits": "*"
-  },
-  "scripts": {
-	"gulp": "gulp"
-  },
-  "devDependencies": {
-    "browserify": "^4.2.0",
-    "gulp": "^3.7.0",
-    "gulp-browserify": "^0.5.0",
-    "gulp-closure-deps": "^0.3.1"
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
+    "http-server": "^0.11.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "ts-loader": "^4.0.1",
+    "typescript": "^2.7.2",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11"
   }
 }
