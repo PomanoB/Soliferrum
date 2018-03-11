@@ -7,12 +7,32 @@ module.exports = {
 	module: {
 		rules: [{
 			test: /\.tsx?$/,
-			use: 'ts-loader',
+			use: [{
+			    loader: 'ts-loader',
+                options: {
+                    errorFormatter: (error, colors) => {
+                        const messageColor =
+                            error.severity === 'warning' ? colors.bold.yellow : colors.bold.red;
+
+                        return (
+                            messageColor(error.severity.toUpperCase()) + '\n' +
+                            (error.file === ''
+                                ? ''
+                                : `${error.file}(${error.line},${error.character})`) +
+                            `: TS${error.code}: ${error.content}`
+                        );
+                    }
+                }
+			}],
 			exclude: /node_modules/
 		}]
 	},
 	resolve: {
-		extensions: ['.tsx', '.ts', '.js']
+	    extensions: ['.tsx', '.ts', '.js'],
+        modules: [
+            'node_modules',
+            path.resolve(__dirname, 'src')
+        ],
 	},
 	output: {
 		filename: 'bundle.js',
