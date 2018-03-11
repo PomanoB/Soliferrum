@@ -3,11 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "http-server": "http-server ./dist/ -p 3000 -c -1",
+    "start": "npm run build && npm run http-server -- -o"
   },
   "dependencies": {
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
+    "html-webpack-plugin": "^3.0.6",
     "http-server": "^0.11.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
