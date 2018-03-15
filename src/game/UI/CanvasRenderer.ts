@@ -16,7 +16,7 @@ export class CanvasRenderer implements IRenderer
         this.width = this.canvas.offsetWidth;
         this.height = this.canvas.offsetHeight;
 
-        this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
+        this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     }
 
     public draw(timeStamp: number)

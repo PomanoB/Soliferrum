@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "build": "webpack",
+    "lint": "tslint --project tsconfig.json --config tslint.json --format msbuild",
+    "lint-fix": "npm run lint -- --fix",
     "http-server": "http-server ./dist/ -p 3000 -c -1",
     "start": "npm run build && npm run http-server -- -o"
   },
@@ -15,6 +17,7 @@
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "ts-loader": "4.0.1",
+    "tslint": "^5.9.1",
     "typescript": "2.7.2",
     "webpack": "4.1.1",
     "webpack-cli": "2.0.11"
