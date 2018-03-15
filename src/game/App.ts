@@ -1,6 +1,6 @@
 
-import {IRenderer} from 'game/UI/IRenderer';
 import {Game} from 'game/Game';
+import {IRenderer} from 'game/UI/IRenderer';
 
 export class App
 {

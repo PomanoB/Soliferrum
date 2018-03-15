@@ -1,7 +1,7 @@
 
-import * as React from 'react';
 import {App} from 'game/App';
 import {CanvasRenderer} from 'game/UI/CanvasRenderer';
+import * as React from 'react';
 
 const kFieldWidth = 607;
 const kFieldHeight = 600;
@@ -22,6 +22,6 @@ export class Game extends React.PureComponent
 
     public render()
     {
-        return <canvas width={kFieldWidth} height={kFieldHeight} ref={(el) => { this.canvas = el; } }/>
+        return <canvas width={kFieldWidth} height={kFieldHeight} ref={(el) => { this.canvas = el; } }/>;
     }
 }
