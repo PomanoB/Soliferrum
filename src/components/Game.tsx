@@ -15,7 +15,7 @@ export class Game extends React.PureComponent
     {
         if (this.canvas)
         {
-            this.app = new App(new CanvasRenderer(this.canvas));
+            this.app = new App(new CanvasRenderer(this.canvas), kFieldWidth, kFieldHeight);
             this.app.start();
         }
     }

@@ -1,5 +1,6 @@
 
 import {IRenderer} from 'game/UI/IRenderer';
+import {Screen} from 'game/UI/Screen';
 
 export class CanvasRenderer implements IRenderer
 {
@@ -19,9 +20,10 @@ export class CanvasRenderer implements IRenderer
         this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     }
 
-    public draw(timeStamp: number)
+    public draw(timeStamp: number, screen: Screen)
     {
         this.ctx.clearRect(0, 0, this.width, this.height);
-        this.ctx.fillText(timeStamp.toFixed(2), 0, 0);
+
+        screen.draw(this.ctx, timeStamp);
     }
 }
