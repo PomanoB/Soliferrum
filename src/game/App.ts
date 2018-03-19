@@ -4,27 +4,29 @@ import {spriteManager} from 'game/SpriteManager';
 import {IRenderer} from 'game/UI/IRenderer';
 import {Screen} from 'game/UI/Screen';
 import {MainScreen} from 'game/UI/Screens/MainScreen';
+import {Rect} from 'game/Util/Rect';
 
 import * as forestBg from 'images/environment_forest_alt1.png';
+import * as ui from 'images/ui.png';
 
 export class App
 {
     private renderer: IRenderer;
     private screen: Screen|null = null;
-    private width: number;
-    private height: number;
+    private rect: Rect;
 
     constructor(renderer: IRenderer, width: number, height: number)
     {
         this.renderer = renderer;
-        this.width = width;
-        this.height = height;
+        this.rect = new Rect(0, 0, width, height);
     }
 
     public start()
     {
         spriteManager.load({
             image: forestBg,
+        }, {
+            image: ui,
         }).then(() =>
         {
             this.setScreen(new MainScreen());
@@ -44,5 +46,6 @@ export class App
     private setScreen(screen: Screen): void
     {
         this.screen = screen;
+        this.screen.setRect(this.rect);
     }
 }

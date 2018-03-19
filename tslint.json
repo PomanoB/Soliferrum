@@ -6,6 +6,8 @@
     "jsRules": {},
     "rules": {
         "one-line": false,
-        "quotemark": [true, "single"]
+        "quotemark": [true, "single"],
+        "object-literal-sort-keys": false,
+        "curly": false
     }
 }
