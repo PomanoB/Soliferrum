@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 	mode: 'development',
 	entry: './src/index.tsx',
+    devtool: false,
 	module: {
 		rules: [{
 			test: /\.tsx?$/,
@@ -25,7 +26,14 @@ module.exports = {
                 }
 			}],
 			exclude: /node_modules/
-		}]
+		},
+        {
+            test: /\.(png|jpe?g|svg)$/,
+            loader: 'file-loader',
+            options: {
+                name: 'images/[name].[ext]',
+            }
+        }]
 	},
 	resolve: {
 	    extensions: ['.tsx', '.ts', '.js'],
@@ -40,7 +48,7 @@ module.exports = {
 	},
     plugins: [
         new HtmlWebpackPlugin({
-            hash: true,
+            hash: false,
             filename: path.resolve(__dirname, 'dist', 'index.html'),
             title: 'Soliferrum'
         })

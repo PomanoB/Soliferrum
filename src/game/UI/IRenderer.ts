@@ -1,5 +1,6 @@
+import {Screen} from 'game/UI/Screen';
 
 export interface IRenderer
 {
-    draw(timeStamp: number): void;
+    draw(timeStamp: number, screen: Screen): void;
 }
