@@ -14,16 +14,19 @@ export class SpritePattern implements IDrawable
         patternCanvas.height = rect.height;
 
         const ctx = patternCanvas.getContext('2d') as CanvasRenderingContext2D;
-        sprite.draw(ctx, 0, new Rect(0, 0, rect.width, rect.height));
+        sprite.draw(ctx, 0, 0, 0, rect.width, rect.height);
 
         this.pattern = ctx.createPattern(patternCanvas, 'repeat');
     }
 
-    public draw(ctx: CanvasRenderingContext2D, timeStamp: number, rect: Rect): void
+    public draw(
+        ctx: CanvasRenderingContext2D, timeStamp: number,
+        x: number, y: number,
+        width: number, height: number): void
     {
         ctx.save();
         ctx.fillStyle = this.pattern;
-        ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+        ctx.fillRect(x, y, width, height);
         ctx.restore();
     }
 }

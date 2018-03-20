@@ -3,8 +3,8 @@ import {Rect} from 'game/Util/Rect';
 
 export class Sprite implements IDrawable
 {
-    private img: HTMLImageElement;
-    private rect: Rect;
+    protected img: HTMLImageElement;
+    protected rect: Rect;
 
     constructor(
         img: HTMLImageElement,
@@ -16,16 +16,24 @@ export class Sprite implements IDrawable
         this.rect = new Rect(x, y, width, height);
     }
 
-    public draw(ctx: CanvasRenderingContext2D, timeStamp: number, rect: Rect): void
+    public draw(
+        ctx: CanvasRenderingContext2D, timeStamp: number,
+        x: number, y: number,
+        width: number, height: number): void
     {
         ctx.drawImage(this.img,
             this.rect.x, this.rect.y,
             this.rect.width, this.rect.height,
-            rect.x, rect.y, rect.width, rect.height);
+            x, y, width, height);
     }
 
     public getRect(): Rect
     {
         return this.rect;
+    }
+
+    public getImage(): HTMLImageElement
+    {
+        return this.img;
     }
 }
