@@ -13,4 +13,9 @@ export class Rect
         this.width = width;
         this.height = height;
     }
+
+    public contains(x: number, y: number): boolean
+    {
+        return this.x <= x && this.y <= y && this.x + this.width >= x && this.y + this.height >= y;
+    }
 }

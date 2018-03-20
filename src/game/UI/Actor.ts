@@ -4,8 +4,8 @@ import {Rect} from 'game/Util/Rect';
 
 export class Actor extends EventEmitter
 {
-    private rect: Rect;
-    private texture: IDrawable|null;
+    protected rect: Rect;
+    protected texture: IDrawable|null;
 
     constructor(rect: Rect = new Rect(), drawable: IDrawable|null = null)
     {
@@ -30,5 +30,19 @@ export class Actor extends EventEmitter
     public setRect(rect: Rect)
     {
         this.rect = rect;
+    }
+
+    public getRect(): Rect
+    {
+        return this.rect;
+    }
+
+    public hit(x: number, y: number): Actor|null
+    {
+        if (this.rect.contains(x, y)) {
+            return this;
+        }
+
+        return null;
     }
 }
