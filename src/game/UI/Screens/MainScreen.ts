@@ -1,4 +1,5 @@
 import {spriteManager} from 'game/SpriteManager';
+import {NinePatch} from 'game/UI/NinePatch';
 import {Screen} from 'game/UI/Screen';
 import {Sprite} from 'game/UI/Sprite';
 import {SpritePattern} from 'game/UI/SpritePattern';
@@ -12,13 +13,13 @@ export class MainScreen extends Screen
     {
         super();
 
-        const pattern = new SpritePattern(spriteManager.getSprite({
+        const texture = new NinePatch(spriteManager.getSprite({
             image: ui,
-            x: 296,
-            y: 382,
-            width: 12,
-            height: 20,
-        }));
-        this.setTexture(pattern);
+            x: 0,
+            y: 491,
+            width: 21,
+            height: 21,
+        }), 9, 9, 9, 9);
+        this.setTexture(texture);
     }
 }

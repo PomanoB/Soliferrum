@@ -6,7 +6,7 @@
     "build": "webpack",
     "lint": "tslint --project tsconfig.json --config tslint.json --format msbuild",
     "lint-fix": "npm run lint -- --fix",
-    "http-server": "http-server ./dist/ -p 3000 -c -1",
+    "http-server": "http-server ./dist/ -p 3000 -c 0",
     "start": "npm run build && npm run http-server -- -o"
   },
   "dependencies": {
