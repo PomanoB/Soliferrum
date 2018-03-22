@@ -7,6 +7,7 @@ import {MainScreen} from 'game/UI/Screens/MainScreen';
 import {Rect} from 'game/Util/Rect';
 
 import * as forestBg from 'images/environment_forest_alt1.png';
+import * as font from 'images/font.png';
 import * as ui from 'images/ui.png';
 
 export class App
@@ -27,6 +28,8 @@ export class App
             image: forestBg,
         }, {
             image: ui,
+        }, {
+            image: font,
         }).then(() =>
         {
             this.setScreen(new MainScreen());
