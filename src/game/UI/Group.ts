@@ -3,6 +3,7 @@ import {Actor} from 'game/UI/Actor';
 export class Group extends Actor
 {
     private children: Actor[] = [];
+    private actorOnMouse: Actor|null = null;
 
     public addChild(child: Actor): void
     {
@@ -48,35 +49,60 @@ export class Group extends Actor
     {
         super.onMouseMove(x, y);
 
-        this.calcActor(x, y, (act, actX, actY) => act.onMouseMove(actX, actY));
+        this.calcActor(x, y, (act, actX, actY) =>
+        {
+
+            if (this.actorOnMouse !== act)
+            {
+                if (this.actorOnMouse !== null)
+                    this.actorOnMouse.onMouseLeave();
+                if (act)
+                    act.onMouseEnter(actX, actY);
+                this.actorOnMouse = act;
+            }
+
+            if (act)
+                act.onMouseMove(actX, actY);
+        });
     }
 
     public onMouseEnter(x: number, y: number): void
     {
         super.onMouseEnter(x, y);
 
-        this.calcActor(x, y, (act, actX, actY) => act.onMouseEnter(actX, actY));
+        this.calcActor(x, y, (act, actX, actY) =>
+        {
+            if (act)
+            {
+                act.onMouseEnter(actX, actY);
+                this.actorOnMouse = act;
+            }
+        });
     }
 
-    public onMouseLeave(x: number, y: number): void
+    public onMouseLeave(): void
     {
-        super.onMouseClick(x, y);
+        super.onMouseLeave();
 
-        this.calcActor(x, y, (act, actX, actY) => act.onMouseLeave(actX, actY));
+        if (this.actorOnMouse !== null)
+            this.actorOnMouse.onMouseLeave();
     }
 
     public onMouseClick(x: number, y: number): void
     {
         super.onMouseClick(x, y);
 
-        this.calcActor(x, y, (act, actX, actY) => act.onMouseClick(actX, actY));
+        this.calcActor(x, y, (act, actX, actY) => act && act.onMouseClick(actX, actY));
     }
 
-    private calcActor(x: number, y: number, func: (actor: Actor, x: number, y: number) => void): void
+    private calcActor(x: number, y: number, func: (actor: Actor|null, x: number, y: number) => void): void
     {
         const actor = this.hit(x, y);
         if (!actor)
+        {
+            func(null, 0, 0);
             return;
+        }
 
         const rect = actor.getRect();
         func(actor, x - rect.x, y - rect.y);

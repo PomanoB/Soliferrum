@@ -1,5 +1,6 @@
 import {spriteManager} from 'game/SpriteManager';
 import {Actor} from 'game/UI/Actor';
+import {IDrawable} from 'game/UI/IDrawable';
 import {NinePatch} from 'game/UI/NinePatch';
 import {Text} from 'game/UI/Text';
 import {Rect} from 'game/Util/Rect';
@@ -10,7 +11,10 @@ const kTextPadding = [13, 35, 13, 35];
 
 export class Button extends Actor
 {
+    protected texture: IDrawable;
+
     private text: Text;
+    private hoverTexture: IDrawable;
 
     constructor(title: string)
     {
@@ -24,13 +28,23 @@ export class Button extends Actor
             width: 71,
             height: 46,
         }), 23, 34, 22, 34);
+        this.hoverTexture = new NinePatch(spriteManager.getSprite({
+            image: ui,
+            x: 1,
+            y: 49,
+            width: 71,
+            height: 46,
+        }), 23, 34, 22, 34);
 
         this.setRect(new Rect(10, 10, 200, 46));
     }
 
     public draw(ctx: CanvasRenderingContext2D, timeStamp: number): void
     {
-        super.draw(ctx, timeStamp);
+        if (this.isOnMouse)
+            this.hoverTexture.draw(ctx, timeStamp, this.rect.x, this.rect.y, this.rect.width, this.rect.height);
+        else
+            this.texture.draw(ctx, timeStamp, this.rect.x, this.rect.y, this.rect.width, this.rect.height);
 
         this.text.draw(ctx, timeStamp,
             this.rect.x + kTextPadding[3], this.rect.y + kTextPadding[0],

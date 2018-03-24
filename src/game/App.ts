@@ -58,7 +58,7 @@ export class App
         if (!this.screen)
             return;
 
-        this.screen.onMouseLeave(x, y);
+        this.screen.onMouseLeave();
     }
 
     public onMouseClick(x: number, y: number): void

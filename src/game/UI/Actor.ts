@@ -47,6 +47,11 @@ export class Actor extends EventEmitter
         return null;
     }
 
+    public onMouseClick(x: number, y: number): void
+    {
+        // onMouseMove
+    }
+
     public onMouseMove(x: number, y: number): void
     {
         // onMouseMove
@@ -57,13 +62,8 @@ export class Actor extends EventEmitter
         this.isOnMouse = true;
     }
 
-    public onMouseLeave(x: number, y: number): void
+    public onMouseLeave(): void
     {
         this.isOnMouse = false;
-    }
-
-    public onMouseClick(x: number, y: number): void
-    {
-        // onMouseMove
     }
 }
