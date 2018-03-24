@@ -43,4 +43,42 @@ export class Group extends Actor
 
         return null;
     }
+
+    public onMouseMove(x: number, y: number): void
+    {
+        super.onMouseMove(x, y);
+
+        this.calcActor(x, y, (act, actX, actY) => act.onMouseMove(actX, actY));
+    }
+
+    public onMouseEnter(x: number, y: number): void
+    {
+        super.onMouseEnter(x, y);
+
+        this.calcActor(x, y, (act, actX, actY) => act.onMouseEnter(actX, actY));
+    }
+
+    public onMouseLeave(x: number, y: number): void
+    {
+        super.onMouseClick(x, y);
+
+        this.calcActor(x, y, (act, actX, actY) => act.onMouseLeave(actX, actY));
+    }
+
+    public onMouseClick(x: number, y: number): void
+    {
+        super.onMouseClick(x, y);
+
+        this.calcActor(x, y, (act, actX, actY) => act.onMouseClick(actX, actY));
+    }
+
+    private calcActor(x: number, y: number, func: (actor: Actor, x: number, y: number) => void): void
+    {
+        const actor = this.hit(x, y);
+        if (!actor)
+            return;
+
+        const rect = actor.getRect();
+        func(actor, x - rect.x, y - rect.y);
+    }
 }

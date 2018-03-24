@@ -6,6 +6,7 @@ export class Actor extends EventEmitter
 {
     protected rect: Rect;
     protected texture: IDrawable|null;
+    protected isOnMouse: boolean = false;
 
     constructor(rect: Rect = new Rect(), drawable: IDrawable|null = null)
     {
@@ -44,5 +45,25 @@ export class Actor extends EventEmitter
         }
 
         return null;
+    }
+
+    public onMouseMove(x: number, y: number): void
+    {
+        // onMouseMove
+    }
+
+    public onMouseEnter(x: number, y: number): void
+    {
+        this.isOnMouse = true;
+    }
+
+    public onMouseLeave(x: number, y: number): void
+    {
+        this.isOnMouse = false;
+    }
+
+    public onMouseClick(x: number, y: number): void
+    {
+        // onMouseMove
     }
 }

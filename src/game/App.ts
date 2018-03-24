@@ -37,6 +37,44 @@ export class App
         });
     }
 
+    public onMouseMove(x: number, y: number): void
+    {
+        if (!this.screen)
+            return;
+
+        this.screen.onMouseMove(x, y);
+    }
+
+    public onMouseEnter(x: number, y: number): void
+    {
+        if (!this.screen)
+            return;
+
+        this.screen.onMouseEnter(x, y);
+    }
+
+    public onMouseLeave(x: number, y: number): void
+    {
+        if (!this.screen)
+            return;
+
+        this.screen.onMouseLeave(x, y);
+    }
+
+    public onMouseClick(x: number, y: number): void
+    {
+        if (!this.screen)
+            return;
+
+        this.screen.onMouseClick(x, y);
+    }
+
+    private setScreen(screen: Screen): void
+    {
+        this.screen = screen;
+        this.screen.setRect(this.rect);
+    }
+
     private draw = (timeStamp: number) =>
     {
         if (this.screen)
@@ -44,11 +82,5 @@ export class App
             this.renderer.draw(timeStamp, this.screen);
             requestAnimationFrame(this.draw);
         }
-    }
-
-    private setScreen(screen: Screen): void
-    {
-        this.screen = screen;
-        this.screen.setRect(this.rect);
     }
 }
