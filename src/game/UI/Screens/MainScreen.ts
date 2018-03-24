@@ -1,4 +1,5 @@
 import {spriteManager} from 'game/SpriteManager';
+import {Button} from 'game/UI/Button';
 import {NinePatch} from 'game/UI/NinePatch';
 import {Screen} from 'game/UI/Screen';
 import {Sprite} from 'game/UI/Sprite';
@@ -14,8 +15,6 @@ export class MainScreen extends Screen
     {
         super();
 
-        this.setTexture(new Text('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя' +
-            'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789' +
-            ' !"#$%&\\\'()*+,-./:;<=>?@[\\\\]^_`{|}~'));
+        this.addChild(new Button('New Game'));
     }
 }

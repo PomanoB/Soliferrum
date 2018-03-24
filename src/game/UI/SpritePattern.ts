@@ -1,5 +1,6 @@
 import {IDrawable} from 'game/UI/IDrawable';
 import {Sprite} from 'game/UI/Sprite';
+import {Text} from 'game/UI/Text';
 import {Rect} from 'game/Util/Rect';
 
 export class SpritePattern implements IDrawable
@@ -25,8 +26,9 @@ export class SpritePattern implements IDrawable
         width: number, height: number): void
     {
         ctx.save();
+        ctx.translate(x, y);
         ctx.fillStyle = this.pattern;
-        ctx.fillRect(x, y, width, height);
+        ctx.fillRect(0, 0, width, height);
         ctx.restore();
     }
 }
