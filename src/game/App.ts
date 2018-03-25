@@ -1,5 +1,4 @@
-
-import {Game} from 'game/Game';
+import {IllegalStateException} from 'Error/IllegalStateException';
 import {spriteManager} from 'game/SpriteManager';
 import {IRenderer} from 'game/UI/IRenderer';
 import {Screen} from 'game/UI/Screen';
@@ -39,34 +38,22 @@ export class App
 
     public onMouseMove(x: number, y: number): void
     {
-        if (!this.screen)
-            return;
-
-        this.screen.onMouseMove(x, y);
+        this.getScreen().onMouseMove(x, y);
     }
 
     public onMouseEnter(x: number, y: number): void
     {
-        if (!this.screen)
-            return;
-
-        this.screen.onMouseEnter(x, y);
+        this.getScreen().onMouseEnter(x, y);
     }
 
     public onMouseLeave(x: number, y: number): void
     {
-        if (!this.screen)
-            return;
-
-        this.screen.onMouseLeave();
+        this.getScreen().onMouseLeave();
     }
 
     public onMouseClick(x: number, y: number): void
     {
-        if (!this.screen)
-            return;
-
-        this.screen.onMouseClick(x, y);
+        this.getScreen().onMouseClick(x, y);
     }
 
     private setScreen(screen: Screen): void
@@ -75,12 +62,19 @@ export class App
         this.screen.setRect(this.rect);
     }
 
+    private getScreen(): Screen
+    {
+        if (!this.screen)
+            throw new IllegalStateException('U need to set Screen before!');
+
+        return this.screen;
+    }
+
     private draw = (timeStamp: number) =>
     {
         if (this.screen)
-        {
             this.renderer.draw(timeStamp, this.screen);
-            requestAnimationFrame(this.draw);
-        }
+
+        requestAnimationFrame(this.draw);
     }
 }
