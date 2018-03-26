@@ -1,6 +1,7 @@
 import {ISpriteDescr, ISpriteManager} from 'game/ISpriteManager';
 import {Sprite} from 'game/UI/Sprite';
 import {CacheLoader} from 'game/Util/CacheLoader';
+import {getTempContext} from 'game/Util/tempContext';
 
 class SpriteManager implements ISpriteManager
 {
@@ -32,6 +33,16 @@ class SpriteManager implements ISpriteManager
         }
 
         return new Sprite(image, descr.x, descr.y, descr.width, descr.height);
+    }
+
+    public getSpriteUrl(sprite: Sprite): string
+    {
+        const rect = sprite.getRect();
+        const {ctx, canvas} = getTempContext(rect.width, rect.height);
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        sprite.draw(ctx, 0, 0, 0, rect.width, rect.height);
+
+        return canvas.toDataURL('image/png');
     }
 
     private loadImage(url: string): Promise<HTMLImageElement>

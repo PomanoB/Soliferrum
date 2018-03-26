@@ -42,7 +42,7 @@ export class Game extends React.PureComponent
         func: (app: App, x: number, y: number) => void): (event: React.MouseEvent<HTMLCanvasElement>) => void
     {
         return (event: React.MouseEvent<HTMLCanvasElement>) => {
-            if (!this.canvas || !this.app)
+            if (!this.canvas || !this.app || !this.app.isLoaded())
                 return;
 
             const canvasRect = this.canvas.getBoundingClientRect();
