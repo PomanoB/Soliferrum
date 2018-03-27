@@ -1,3 +1,4 @@
+import {cursorService, CursorState} from 'game/cursorService';
 import {spriteManager} from 'game/SpriteManager';
 import {Actor} from 'game/UI/Actor';
 import {IDrawable} from 'game/UI/IDrawable';
@@ -49,5 +50,19 @@ export class Button extends Actor
         this.text.draw(ctx, timeStamp,
             this.rect.x + kTextPadding[3], this.rect.y + kTextPadding[0],
             this.rect.width - kTextPadding[1] - kTextPadding[3], this.rect.height - kTextPadding[0] - kTextPadding[2]);
+    }
+
+    public onMouseEnter(x: number, y: number): void
+    {
+        super.onMouseEnter(x, y);
+
+        cursorService.setState(CursorState.Hover);
+    }
+
+    public onMouseLeave(): void
+    {
+        super.onMouseLeave();
+
+        cursorService.setState(CursorState.Normal);
     }
 }

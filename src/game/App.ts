@@ -1,4 +1,5 @@
 import {IllegalStateException} from 'Error/IllegalStateException';
+import {cursorService} from 'game/cursorService';
 import {spriteManager} from 'game/SpriteManager';
 import {IRenderer} from 'game/UI/IRenderer';
 import {Screen} from 'game/UI/Screen';
@@ -54,6 +55,11 @@ export class App
     public onMouseClick(x: number, y: number): void
     {
         this.getScreen().onMouseClick(x, y);
+    }
+
+    public isLoaded(): boolean
+    {
+        return this.screen !== null;
     }
 
     private setScreen(screen: Screen): void
