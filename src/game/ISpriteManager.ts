@@ -1,16 +1,36 @@
+import {Images} from 'game/resources';
+import {NinePath} from 'game/UI/NinePath';
 import {Sprite} from 'game/UI/Sprite';
+
+export enum Sprites
+{
+}
+
+export enum NinePathSprites
+{
+    ButtonNormal,
+    ButtonHover,
+}
+
+export interface ISpriteManager
+{
+    getSprite(sprite: Sprites): Sprite;
+    getTextSprites(text: string): Sprite[];
+    getNinePath(sprite: NinePathSprites): NinePath;
+}
 
 export interface ISpriteDescr
 {
-    readonly image: string;
+    readonly image: Images;
     readonly x?: number;
     readonly y?: number;
     readonly width?: number;
     readonly height?: number;
 }
-
-export interface ISpriteManager
+export interface INinePathSpriteDescr extends ISpriteDescr
 {
-    load(...descr: ISpriteDescr[]): Promise<void>;
-    getSprite(descr: ISpriteDescr|string): Sprite;
+    readonly top: number;
+    readonly right: number;
+    readonly bottom: number;
+    readonly left: number;
 }

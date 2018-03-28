@@ -14,20 +14,7 @@ export class Text implements IDrawable
     {
         this.text = text;
 
-        for (const char of this.text)
-        {
-            const data = fontData[char];
-            if (!data)
-                continue;
-
-            this.sprites.push(spriteManager.getSprite({
-                image: font,
-                x: data[0],
-                y: data[1],
-                width: data[2],
-                height: data[3],
-            }));
-        }
+        this.sprites = spriteManager.getTextSprites(text);
     }
 
     public draw(

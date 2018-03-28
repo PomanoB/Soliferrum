@@ -5,7 +5,7 @@ import {Rect} from 'game/Util/Rect';
 /**
  * По-факту, пока он не "Nine" :(
  */
-export class NinePatch extends Sprite
+export class NinePath extends Sprite
 {
     private topLeft: Sprite;
     private topCenter: SpritePattern;

@@ -1,59 +1,66 @@
-import {ISpriteDescr, ISpriteManager} from 'game/ISpriteManager';
+import {INinePathSpriteDescr, ISpriteDescr, ISpriteManager, NinePathSprites, Sprites} from 'game/ISpriteManager';
+import {getImageResource, Images} from 'game/resources';
+import {fontData} from 'game/UI/fontData';
+import {NinePath} from 'game/UI/NinePath';
 import {Sprite} from 'game/UI/Sprite';
 import {CacheLoader} from 'game/Util/CacheLoader';
-import {getTempContext} from 'game/Util/tempContext';
+
+const kNinePathSpritesData: INinePathSpriteDescr[] = [];
+kNinePathSpritesData[NinePathSprites.ButtonNormal] = {
+    image: Images.UI,
+    x: 1,
+    y: 97,
+    width: 71,
+    height: 46,
+    top: 23,
+    right: 34,
+    bottom: 22,
+    left: 34,
+} as INinePathSpriteDescr;
+kNinePathSpritesData[NinePathSprites.ButtonHover] = {
+    image: Images.UI,
+    x: 1,
+    y: 49,
+    width: 71,
+    height: 46,
+    top: 23,
+    right: 34,
+    bottom: 22,
+    left: 34,
+} as INinePathSpriteDescr;
+const kSpritesData: ISpriteDescr[] = [];
 
 class SpriteManager implements ISpriteManager
 {
-    private images: Map<string, HTMLImageElement> = new Map();
-    private loadingCache: CacheLoader<string, Promise<HTMLImageElement>> = new CacheLoader();
-
-    public load(...descr: ISpriteDescr[]): Promise<void>
+    public getSprite(sprite: Sprites): Sprite
     {
-        return Promise.all(descr.map((sprite) =>
-        {
-            return this.loadingCache.get(sprite.image, () => this.loadImage(sprite.image));
-        })).then((images) =>
-        {
-            for (let i = 0; i < images.length; i++)
-            {
-                if (!this.images.has(descr[i].image)) {
-                    this.images.set(descr[i].image, images[i]);
-                }
-            }
-        });
+        const descr = kSpritesData[sprite];
+
+        return new Sprite(getImageResource(descr.image), descr.x, descr.y, descr.width, descr.height);
     }
 
-    public getSprite(imageOrDescr: string|ISpriteDescr): Sprite
+    public getNinePath(sprite: NinePathSprites): NinePath
     {
-        const descr: ISpriteDescr = typeof imageOrDescr === 'string' ? {image: imageOrDescr} : imageOrDescr;
-        const image = this.images.get(descr.image);
-        if (!image) {
-            throw new Error('Image not loaded!');
+        const descr = kNinePathSpritesData[sprite];
+        const normalSprite = new Sprite(getImageResource(descr.image), descr.x, descr.y, descr.width, descr.height);
+
+        return new NinePath(normalSprite, descr.top, descr.right, descr.bottom, descr.left);
+    }
+
+    public getTextSprites(text: string): Sprite[]
+    {
+        const sprites: Sprite[] = [];
+
+        for (const char of text)
+        {
+            const data = fontData[char];
+            if (!data)
+                continue;
+
+            sprites.push(new Sprite(getImageResource(Images.Font), data[0], data[1], data[2], data[3]));
         }
 
-        return new Sprite(image, descr.x, descr.y, descr.width, descr.height);
-    }
-
-    public getSpriteUrl(sprite: Sprite): string
-    {
-        const rect = sprite.getRect();
-        const {ctx, canvas} = getTempContext(rect.width, rect.height);
-        ctx.clearRect(0, 0, rect.width, rect.height);
-        sprite.draw(ctx, 0, 0, 0, rect.width, rect.height);
-
-        return canvas.toDataURL('image/png');
-    }
-
-    private loadImage(url: string): Promise<HTMLImageElement>
-    {
-        return new Promise((resolve, reject) =>
-        {
-            const image = new Image();
-            image.onload = () => { resolve(image); };
-            image.onerror = (e) => { reject(e); };
-            image.src = url;
-        });
+        return sprites;
     }
 }
 

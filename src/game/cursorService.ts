@@ -1,6 +1,3 @@
-
-import * as cursor from 'images/AnimCursor.png';
-
 export enum CursorState
 {
     Normal,
