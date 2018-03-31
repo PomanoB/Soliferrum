@@ -1,14 +1,9 @@
 import {IllegalStateException} from 'Error/IllegalStateException';
-import {cursorService} from 'game/cursorService';
-import {spriteManager} from 'game/SpriteManager';
+import {loadResources} from 'game/resources';
 import {IRenderer} from 'game/UI/IRenderer';
 import {Screen} from 'game/UI/Screen';
 import {MainScreen} from 'game/UI/Screens/MainScreen';
 import {Rect} from 'game/Util/Rect';
-
-import * as forestBg from 'images/environment_forest_alt1.png';
-import * as font from 'images/font.png';
-import * as ui from 'images/ui.png';
 
 export class App
 {
@@ -24,13 +19,7 @@ export class App
 
     public start()
     {
-        spriteManager.load({
-            image: forestBg,
-        }, {
-            image: ui,
-        }, {
-            image: font,
-        }).then(() =>
+        loadResources().then(() =>
         {
             this.setScreen(new MainScreen());
             requestAnimationFrame(this.draw);

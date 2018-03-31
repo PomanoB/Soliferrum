@@ -1,18 +1,24 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es5",
-    "sourceMap": false,
-    "baseUrl": "./src",
-	"jsx": "react",
-	"allowJs": true,
-	"noImplicitAny": true,
-	"strict": true,
-    "lib": ["dom", "es5", "es2015.collection", "es2015.promise"],
-    "types": []
-  },
-  "include": [
-    "src/**/*"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es5",
+        "sourceMap": false,
+        "baseUrl": "./src",
+        "jsx": "react",
+        "allowJs": true,
+        "noImplicitAny": true,
+        "strict": true,
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.collection",
+            "es2015.promise"
+        ],
+        "types": [],
+        "esModuleInterop": true
+    },
+    "include": [
+        "src/**/*"
+    ]
 }

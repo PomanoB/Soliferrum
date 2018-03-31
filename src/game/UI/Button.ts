@@ -1,8 +1,9 @@
 import {cursorService, CursorState} from 'game/cursorService';
+import {NinePathSprites} from 'game/ISpriteManager';
 import {spriteManager} from 'game/SpriteManager';
 import {Actor} from 'game/UI/Actor';
 import {IDrawable} from 'game/UI/IDrawable';
-import {NinePatch} from 'game/UI/NinePatch';
+import {NinePath} from 'game/UI/NinePath';
 import {Text} from 'game/UI/Text';
 import {Rect} from 'game/Util/Rect';
 
@@ -22,20 +23,8 @@ export class Button extends Actor
         super();
 
         this.text = new Text(title.toUpperCase());
-        this.texture = new NinePatch(spriteManager.getSprite({
-            image: ui,
-            x: 1,
-            y: 97,
-            width: 71,
-            height: 46,
-        }), 23, 34, 22, 34);
-        this.hoverTexture = new NinePatch(spriteManager.getSprite({
-            image: ui,
-            x: 1,
-            y: 49,
-            width: 71,
-            height: 46,
-        }), 23, 34, 22, 34);
+        this.texture = spriteManager.getNinePath(NinePathSprites.ButtonNormal);
+        this.hoverTexture = spriteManager.getNinePath(NinePathSprites.ButtonHover);
 
         this.setRect(new Rect(10, 10, 200, 46));
     }
