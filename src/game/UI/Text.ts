@@ -1,20 +1,65 @@
+import {getImageResource, Images} from 'game/resources';
 import {spriteManager} from 'game/SpriteManager';
 import {fontData} from 'game/UI/fontData';
 import {IDrawable} from 'game/UI/IDrawable';
 import {Sprite} from 'game/UI/Sprite';
 
-import * as font from 'images/font.png';
+export enum TextWrap
+{
+    NoBreak,
+    BreakWord,
+    BreakAll,
+}
 
 export class Text implements IDrawable
 {
-    private text: string;
+    private wordWidths: number[];
+    private wordIndex: number[];
     private sprites: Sprite[] = [];
+    private textWrap: TextWrap = TextWrap.BreakWord;
 
     constructor(text: string)
     {
-        this.text = text;
+        this.wordWidths = [];
+        this.wordIndex = [];
 
-        this.sprites = spriteManager.getTextSprites(text);
+        const sprites: Sprite[] = [];
+
+        let curWidth = 0;
+        let char: string = '';
+        for (char of text)
+        {
+            const data = fontData[char];
+            if (!data)
+                continue;
+
+            const charSprite = new Sprite(getImageResource(Images.Font), data[0], data[1], data[2], data[3]);
+
+            this.wordIndex.push(this.wordWidths.length);
+            if (char === ' ')
+            {
+                this.wordWidths.push(curWidth);
+                curWidth = 0;
+            }
+            curWidth += charSprite.getRect().width;
+
+            sprites.push(charSprite);
+        }
+        if (char !== ' ')
+            this.wordWidths.push(curWidth);
+
+        this.wordWidths.push(sprites.length);
+        this.sprites = sprites;
+    }
+
+    public getTextWrap(): TextWrap
+    {
+        return this.textWrap;
+    }
+
+    public setTextWrap(textWrap: TextWrap): void
+    {
+        this.textWrap = textWrap;
     }
 
     public draw(
@@ -23,18 +68,34 @@ export class Text implements IDrawable
     {
         let curX = x;
         let curY = y;
+        let wordStart = curX;
+        let curWord = 0;
 
-        for (const char of this.sprites)
+        const textWrap = this.textWrap;
+        for (let i = 0; i < this.sprites.length; i++)
         {
+            const char = this.sprites[i];
             const rect = char.getRect();
-            if (curX + rect.width >= x + width)
+
+            if (textWrap === TextWrap.BreakWord && curWord !== this.wordIndex[i])
+            {
+                curWord = this.wordIndex[i];
+                if (curX + this.wordWidths[curWord] >= x + width)
+                {
+                    curX = x;
+                    curY += rect.height;
+                }
+                wordStart = curX;
+            }
+
+            if (textWrap === TextWrap.BreakAll && curX + rect.width >= x + width)
             {
                 curX = x;
-                // TODO!!!!
                 curY += rect.height;
-                if (curY >= y + height)
-                    break;
             }
+
+            if (curX + rect.width >= x + width || curY + rect.height >= y + height)
+                break;
 
             char.draw(ctx, timeStamp, curX, curY, rect.width, rect.height);
             curX += rect.width;

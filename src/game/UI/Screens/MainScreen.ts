@@ -7,6 +7,6 @@ export class MainScreen extends Screen
     {
         super();
 
-        this.addChild(new Button('New Game'));
+        this.addChild(new Button('New GameNew GameNew GameNew GameNew GameNew Game'));
     }
 }

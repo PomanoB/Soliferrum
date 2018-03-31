@@ -26,7 +26,7 @@ export class Button extends Actor
         this.texture = spriteManager.getNinePath(NinePathSprites.ButtonNormal);
         this.hoverTexture = spriteManager.getNinePath(NinePathSprites.ButtonHover);
 
-        this.setRect(new Rect(10, 10, 200, 46));
+        this.setRect(new Rect(10, 10, 300, 200));
     }
 
     public draw(ctx: CanvasRenderingContext2D, timeStamp: number): void
