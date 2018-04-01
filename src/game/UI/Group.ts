@@ -14,16 +14,13 @@ export class Group extends Actor
     {
         super.draw(ctx, timeStamp);
 
+        ctx.save();
+        ctx.translate(this.rect.x, this.rect.y);
         this.children.forEach((child) =>
         {
-            ctx.save();
-
-            const childRect = child.getRect();
-            ctx.translate(childRect.x, childRect.y);
             child.draw(ctx, timeStamp);
-
-            ctx.restore();
         });
+        ctx.restore();
     }
 
     public hit(x: number, y: number): Actor|null
