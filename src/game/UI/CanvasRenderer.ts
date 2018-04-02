@@ -29,36 +29,42 @@ export class CanvasRenderer implements IRenderer
     {
         this.ctx.clearRect(0, 0, this.width, this.height);
 
-        if (this.prevScreen !== screen && this.prevScreen !== null)
+        const screenChanged = this.prevScreen !== screen;
+        const isChanging = this.screenChangeTime !== 0 && this.screenChangeTime > timeStamp;
+        let offset = 0;
+        if (screenChanged)
         {
-            if (this.screenChangeTime === 0)
-                this.screenChangeTime = timeStamp;
+            if (isChanging)
+            {
+                offset = (this.screenChangeTime - timeStamp) / kScreenChangeTime;
+            }
+            else
+            {
+                if (this.screenChangeTime === 0 && this.prevScreen)
+                {
+                    this.screenChangeTime = timeStamp + kScreenChangeTime;
+                }
+                else
+                {
+                    this.prevScreen = screen;
+                    this.screenChangeTime = 0;
+                }
+            }
+        }
 
-            const width = screen.getRect().width;
-            const offset = (timeStamp - this.screenChangeTime) / kScreenChangeTime;
-            if (isFinite(offset) && offset < 1)
-            {
-                this.ctx.save();
-                this.ctx.translate(offset * width, 0);
-                this.prevScreen.draw(this.ctx, timeStamp);
-                this.ctx.restore();
-                this.ctx.save();
-                this.ctx.translate(-(1 - offset) * width, 0);
-                screen.draw(this.ctx, timeStamp);
-                this.ctx.restore();
-            }
-            else if (isFinite(offset))
-            {
-                this.prevScreen = screen;
-                this.screenChangeTime = 0;
-                screen.draw(this.ctx, timeStamp);
-            }
+        if (offset !== 0 && this.prevScreen)
+        {
+            this.ctx.save();
+            this.ctx.translate(offset * this.width, 0);
+            this.prevScreen.draw(this.ctx, timeStamp);
+            this.ctx.restore();
+            this.ctx.save();
+            this.ctx.translate(-(1 - offset) * this.width, 0);
+            screen.draw(this.ctx, timeStamp);
+            this.ctx.restore();
         }
         else
         {
-            if (this.prevScreen === null)
-                this.prevScreen = screen;
-
             screen.draw(this.ctx, timeStamp);
         }
     }
