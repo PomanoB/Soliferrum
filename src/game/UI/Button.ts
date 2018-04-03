@@ -10,6 +10,7 @@ import {Rect} from 'game/Util/Rect';
 import * as ui from 'images/ui.png';
 
 const kTextPadding = [13, 35, 13, 35];
+const kDefaultButtonHeight = 46;
 
 export class Button extends Actor
 {
@@ -18,15 +19,15 @@ export class Button extends Actor
     private text: Text;
     private hoverTexture: IDrawable;
 
-    constructor(title: string)
+    constructor(title: string, x: number = 0, y: number = 0, width: number = 0, height: number = 0)
     {
         super();
+
+        this.setRect(new Rect(x, y, width, height || kDefaultButtonHeight));
 
         this.text = new Text(title.toUpperCase());
         this.texture = spriteManager.getNinePath(NinePathSprites.ButtonNormal);
         this.hoverTexture = spriteManager.getNinePath(NinePathSprites.ButtonHover);
-
-        this.setRect(new Rect(10, 10, 200, 46));
     }
 
     public draw(ctx: CanvasRenderingContext2D, timeStamp: number): void
@@ -53,5 +54,10 @@ export class Button extends Actor
         super.onMouseLeave();
 
         cursorService.setState(CursorState.Normal);
+    }
+
+    public onMouseClick(x: number, y: number): void
+    {
+        this.emit('click');
     }
 }
