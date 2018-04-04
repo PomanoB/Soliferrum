@@ -21,7 +21,7 @@ export class App
     {
         loadResources().then(() =>
         {
-            this.setScreen(new MainScreen());
+            this.setScreen(new MainScreen(this));
             requestAnimationFrame(this.draw);
         });
     }
@@ -51,13 +51,13 @@ export class App
         return this.screen !== null;
     }
 
-    private setScreen(screen: Screen): void
+    public setScreen(screen: Screen): void
     {
         this.screen = screen;
         this.screen.setRect(this.rect);
     }
 
-    private getScreen(): Screen
+    public getScreen(): Screen
     {
         if (!this.screen)
             throw new IllegalStateException('U need to set Screen before!');
