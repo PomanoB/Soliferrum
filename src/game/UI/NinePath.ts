@@ -24,7 +24,16 @@ export class NinePath extends Sprite
     private bottom: number;
     private left: number;
 
-    constructor(sprite: Sprite, top: number, right: number, bottom: number, left: number)
+    private contentTop: number;
+    private contentRight: number;
+    private contentBottom: number;
+    private contentLeft: number;
+
+    constructor(
+        sprite: Sprite,
+        top: number, right: number, bottom: number, left: number,
+        contentTop: number = top, contentRight: number = right,
+        contentBottom: number = bottom, contentLeft: number = left)
     {
         const spriteRect = sprite.getRect();
         const spriteImg = sprite.getImage();
@@ -34,6 +43,11 @@ export class NinePath extends Sprite
         this.right = right;
         this.bottom = bottom;
         this.left = left;
+
+        this.contentTop = contentTop;
+        this.contentRight = contentRight;
+        this.contentBottom = contentBottom;
+        this.contentLeft = contentLeft;
 
         const leftPos = spriteRect.x + left;
         const rightPos = spriteRect.x + spriteRect.width - right;
@@ -83,5 +97,10 @@ export class NinePath extends Sprite
         this.bottomLeft.draw(ctx, timeStamp, x, bottomPos, left, bottom);
         this.bottomCenter.draw(ctx, timeStamp, leftPos, bottomPos, centerWidth, bottom);
         this.bottomRight.draw(ctx, timeStamp, rightPos, bottomPos, right, bottom);
+    }
+
+    public getContentPaddings(): [number, number, number, number]
+    {
+        return [this.contentTop, this.contentRight, this.contentBottom, this.contentLeft];
     }
 }

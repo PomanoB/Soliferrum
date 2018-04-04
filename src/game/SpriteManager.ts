@@ -17,6 +17,10 @@ kNinePathSpritesData[NinePathSprites.ButtonNormal] = {
     right: 34,
     bottom: 22,
     left: 34,
+    contentTop: 13,
+    contentRight: 35,
+    contentBottom: 13,
+    contentLeft: 35,
 } as INinePathSpriteDescr;
 kNinePathSpritesData[NinePathSprites.ButtonHover] = {
     image: Images.UI,
@@ -28,6 +32,21 @@ kNinePathSpritesData[NinePathSprites.ButtonHover] = {
     right: 34,
     bottom: 22,
     left: 34,
+    contentTop: 13,
+    contentRight: 35,
+    contentBottom: 13,
+    contentLeft: 35,
+} as INinePathSpriteDescr;
+kNinePathSpritesData[NinePathSprites.TextBox] = {
+    image: Images.UI,
+    x: 388,
+    y: 331,
+    width: 124,
+    height: 24,
+    top: 8,
+    right: 8,
+    bottom: 8,
+    left: 8,
 } as INinePathSpriteDescr;
 const kSpritesData: ISpriteDescr[] = [];
 
@@ -45,7 +64,10 @@ class SpriteManager implements ISpriteManager
         const descr = kNinePathSpritesData[sprite];
         const normalSprite = new Sprite(getImageResource(descr.image), descr.x, descr.y, descr.width, descr.height);
 
-        return new NinePath(normalSprite, descr.top, descr.right, descr.bottom, descr.left);
+        return new NinePath(
+            normalSprite,
+            descr.top, descr.right, descr.bottom, descr.left,
+            descr.contentTop, descr.contentRight, descr.contentBottom, descr.contentLeft);
     }
 }
 

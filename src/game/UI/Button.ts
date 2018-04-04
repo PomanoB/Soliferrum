@@ -9,7 +9,6 @@ import {Rect} from 'game/Util/Rect';
 
 import * as ui from 'images/ui.png';
 
-const kTextPadding = [13, 35, 13, 35];
 const kDefaultButtonHeight = 46;
 
 export class Button extends Actor
@@ -18,6 +17,7 @@ export class Button extends Actor
 
     private text: Text;
     private hoverTexture: IDrawable;
+    private paddings: [number, number, number, number];
 
     constructor(title: string, x: number = 0, y: number = 0, width: number = 0, height: number = 0)
     {
@@ -26,7 +26,9 @@ export class Button extends Actor
         this.setRect(new Rect(x, y, width, height || kDefaultButtonHeight));
 
         this.text = new Text(title.toUpperCase());
-        this.texture = spriteManager.getNinePath(NinePathSprites.ButtonNormal);
+        const texture = spriteManager.getNinePath(NinePathSprites.ButtonNormal);
+        this.paddings = texture.getContentPaddings();
+        this.texture = texture;
         this.hoverTexture = spriteManager.getNinePath(NinePathSprites.ButtonHover);
     }
 
@@ -38,8 +40,10 @@ export class Button extends Actor
             this.texture.draw(ctx, timeStamp, this.rect.x, this.rect.y, this.rect.width, this.rect.height);
 
         this.text.draw(ctx, timeStamp,
-            this.rect.x + kTextPadding[3], this.rect.y + kTextPadding[0],
-            this.rect.width - kTextPadding[1] - kTextPadding[3], this.rect.height - kTextPadding[0] - kTextPadding[2]);
+            this.rect.x + this.paddings[3],
+            this.rect.y + this.paddings[0],
+            this.rect.width - this.paddings[1] - this.paddings[3],
+            this.rect.height - this.paddings[0] - this.paddings[2]);
     }
 
     public onMouseEnter(x: number, y: number): void
