@@ -15,7 +15,6 @@ export enum NinePathSprites
 export interface ISpriteManager
 {
     getSprite(sprite: Sprites): Sprite;
-    getTextSprites(text: string): Sprite[];
     getNinePath(sprite: NinePathSprites): NinePath;
 }
 
