@@ -10,6 +10,7 @@ export enum NinePathSprites
 {
     ButtonNormal,
     ButtonHover,
+    TextBox,
 }
 
 export interface ISpriteManager
@@ -32,4 +33,8 @@ export interface INinePathSpriteDescr extends ISpriteDescr
     readonly right: number;
     readonly bottom: number;
     readonly left: number;
+    readonly contentTop?: number;
+    readonly contentRight?: number;
+    readonly contentBottom?: number;
+    readonly contentLeft?: number;
 }

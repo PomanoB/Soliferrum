@@ -18,7 +18,8 @@ export class Actor extends EventEmitter
 
     public draw(ctx: CanvasRenderingContext2D, timeStamp: number): void
     {
-        if (this.texture) {
+        if (this.texture)
+        {
             this.texture.draw(ctx, timeStamp, this.rect.x, this.rect.y, this.rect.width, this.rect.height);
         }
     }
