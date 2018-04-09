@@ -1,7 +1,7 @@
 import {Hexagon, HexagonType} from 'game/Hexagon';
 
-const kNeighborsDi_ = [0, 1, 1, 0, -1, -1];
-const kNeighborsDj_ = [
+const kNeighborsDi = [0, 1, 1, 0, -1, -1];
+const kNeighborsDj = [
     [-1, -1, 0, 1, 0, -1],
     [-1, 0, 1, 1, 1, 0]
 ];
