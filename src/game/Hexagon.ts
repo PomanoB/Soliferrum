@@ -23,4 +23,9 @@ export class Hexagon
     {
         this.type = type;
     }
+
+    public getType(): HexagonType
+    {
+        return this.type;
+    }
 }
