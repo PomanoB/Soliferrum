@@ -7,6 +7,5 @@ export class GameScreen extends Screen
     {
         super(app);
 
-
     }
 }

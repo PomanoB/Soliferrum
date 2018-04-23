@@ -4,7 +4,7 @@ export enum HexagonType
     Grass,
     Stone,
     Water,
-    Lava
+    Lava,
 }
 
 export enum HexagonContents
@@ -12,7 +12,7 @@ export enum HexagonContents
     Empty,
     Solid,
     Lava,
-    Ground
+    Ground,
 }
 
 export class Hexagon

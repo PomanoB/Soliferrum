@@ -1,5 +1,4 @@
 
-
 export enum BoardDirection
 {
     None,
@@ -8,5 +7,5 @@ export enum BoardDirection
     BottomRight,
     Bottom,
     BottomLeft,
-    TopLeft
+    TopLeft,
 }

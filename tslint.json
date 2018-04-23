@@ -9,6 +9,7 @@
         "quotemark": [true, "single"],
         "object-literal-sort-keys": false,
         "curly": false,
-        "max-classes-per-file": false
+        "max-classes-per-file": false,
+        "prefer-const": false
     }
 }
